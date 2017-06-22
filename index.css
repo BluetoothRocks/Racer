@@ -1,0 +1,234 @@
+
+/* Basic layout */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+}
+
+body {
+	background: #444;
+	text-align: center;
+	
+	display: grid;
+	grid-template-columns: auto minmax(100vw,60vh) auto;
+	grid-template-rows: 60vh auto;
+}
+
+body > svg {
+	grid-column: 2;
+	grid-row: 1;
+
+	width: 100%;
+	height: 100%;
+}
+
+body > div {
+	grid-column: 2;
+	grid-row: 2;
+	padding: 0 5vw;
+}
+
+body > div > div:first-child {
+	min-height: 40vh;
+}
+
+button {
+	color: #888;
+	background: none;
+	border: .3vh solid #888;
+	border-radius: 1vh;
+	outline: none;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+/* Animated car */
+
+#car {
+	opacity: 0.3;
+	transform: translateX(50px) translateY(50px);
+	transform-origin: center center;
+
+	transition: opacity .5s, transform .2s ease-out;
+}
+
+.connected #car {
+	opacity: 1;
+}
+
+.forward #car {
+	transform: translateX(50px) translateY(20px);
+}
+.reverse #car {
+	transform: translateX(50px) translateY(80px);
+}
+.left #car {
+	transform: translateX(50px) translateY(50px) rotate(-10deg);
+}
+.right #car {
+	transform: translateX(50px) translateY(50px) rotate(10deg);
+}
+
+.forward #left-track, .forward #right-track {
+	fill: url(#forward);
+}
+.reverse #left-track, .reverse #right-track {
+	fill: url(#reverse);
+}
+.left #left-track {
+	fill: url(#reverse);
+}
+.left #right-track {
+	fill: url(#forward);
+}
+.right #left-track {
+	fill: url(#forward);
+}
+.right #right-track {
+	fill: url(#reverse);
+}
+
+
+
+
+
+
+
+
+
+
+/* Buttons */
+
+button#connect {
+	margin: 2vh 0;
+	padding: 1vh 2vh;
+	font-size: 3vh;
+	
+}
+
+button#emulate {
+	color: #aaa;
+	border: none;
+	background: none;
+	font-size: 1.3vh;
+}
+
+body.connected div.buttons {
+	display: none;
+}
+
+
+
+
+
+
+
+
+
+/* Controls */
+
+#controls {
+	margin: 2vh 0;
+	display: none;
+	
+	grid-template-columns: 8vh 8vh 8vh;
+	grid-template-rows: 8vh 8vh 8vh;
+	grid-gap: 0;
+}
+
+.connected #controls {
+	display: inline-grid;
+}
+			
+#controls #button-forward {
+	grid-column: 2;
+	grid-row: 1;
+}
+#controls #button-left {
+	grid-column: 1;
+	grid-row: 2;
+}
+#controls #button-right {
+	grid-column: 3;
+	grid-row: 2;
+}
+#controls #button-reverse {
+	grid-column: 2;
+	grid-row: 3;
+}
+
+#controls button {
+	padding: 1vh 2vh;
+	font-size: 2vh;
+}
+
+#controls button:active,
+.forward #controls button#button-forward,
+.reverse #controls button#button-reverse,
+.left #controls button#button-left,
+.right #controls button#button-right {
+	background: #888;
+	color: #444;
+}
+
+
+
+
+
+
+
+
+/* Style editor */
+
+style[contenteditable] {
+	white-space: pre;
+	font-family: monospace;
+	color: #fff;
+	
+	font-size: 2vh;
+	text-align: left;
+	margin: 10vh;
+	outline: none;
+}
+
+.connected style[contenteditable] {
+	display: block;
+}
+
+
+
+
+
+/* Github link */
+
+#about {
+	display: block;
+	padding: 2vh 0;
+}
+#about a {
+	font-size: 1vh;
+	text-decoration: none;
+	color: #999;
+}
+#about svg {
+	display: inline-block;
+	height: 1.3em;
+	vertical-align: bottom
+}
+#about svg path {
+	fill: currentColor;
+	fill-rule: evenodd;
+}
+#about:hover svg path {
+	color: #cc174d;
+}

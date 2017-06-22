@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Lego Racer using SBrick</title>
+
+		<link rel="manifest" href="manifest.json">
+		<link rel="stylesheet" href="index.css">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<script type="text/javascript" src="lib/promise-queue.js"></script>
+		<script type="text/javascript" src="lib/bluetooth.js"></script>
+		<script type="text/javascript" src="lib/sbrick.js"></script>
+		<script type="text/javascript" src="lib/gamepad.js"></script>
+
+		<script>
+
+			if ('serviceWorker' in navigator) {
+ 				navigator.serviceWorker.register('sw.js');
+			}
+
+		</script>
+	</head>
+	
+	<body>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 479 551">
+			<defs>
+			   <linearGradient id="gradient-static" x1="0%" y1="0%" x2="0%" y2="10%">
+			     <stop offset="0%" stop-color= "black" />
+			     <stop offset="50%" stop-color= "#111" />
+			   </linearGradient>
+			
+			   <linearGradient id="gradient-reverse" x1="0%" y1="0%" x2="0%" y2="10%">
+			     <stop offset="0%" stop-color= "black" />
+			     <stop offset="50%" stop-color= "#111" />
+			     
+			     <animate attributeName="y1" dur="80ms" from="0%" to="10%" repeatCount="indefinite" />
+			     <animate attributeName="y2" dur="80ms" from="10%" to="20%" repeatCount="indefinite" />
+			   </linearGradient>
+			
+			   <linearGradient id="gradient-forward" x1="0%" y1="0%" x2="0%" y2="10%">
+			     <stop offset="0%" stop-color= "black" />
+			     <stop offset="50%" stop-color= "#111" />
+			     
+			     <animate attributeName="y1" dur="80ms" from="10%" to="0%" repeatCount="indefinite" />
+			     <animate attributeName="y2" dur="80ms" from="20%" to="10%" repeatCount="indefinite" />
+			   </linearGradient>
+			
+			
+			   <linearGradient id="static" xlink:href="#gradient-static" spreadMethod="repeat" />
+			   <linearGradient id="forward" xlink:href="#gradient-forward" spreadMethod="repeat" />
+			   <linearGradient id="reverse" xlink:href="#gradient-reverse" spreadMethod="repeat" />
+			</defs>
+
+			<g id="car">
+				<rect id="left-track" y="71" width="74" height="380" fill= "url(#static)"/>
+				<rect id="right-track" y="71" width="74" height="380" transform="translate(304 0)" fill="url(#static)"/>
+				<g id="body">
+					<rect id="battery" x="132" y="283" width="115" height="100" style="fill:#999"/>
+					<g id="base">
+						<polygon points="155 4.7 147 2 112 22.42 86 120 86 383 132 383 132 304 155 304 155 4.7" style="fill:#8cc63f"/>
+						<polygon points="224 4.7 232 2 267 22.42 293 120 293 383 247 383 247 304 224 304 224 4.7" style="fill:#8cc63f"/>
+					</g>
+					<g id="bonnet">
+						<rect x="155" width="23" height="140" style="fill:#fff"/>
+						<rect x="201" width="23" height="140" style="fill:#fff"/>
+						<rect x="178" width="23" height="140"/>
+					</g>
+					<g id="roof">
+						<rect x="155" y="187" width="23" height="96" style="fill:#fff"/>
+						<rect x="201" y="187" width="23" height="96" style="fill:#fff"/>
+						<rect x="178" y="187" width="23" height="96"/>
+					</g>
+					<polygon id="left-panel" points="124.52 204 107 218 86 304 86 400 96 400 99.95 381.92 132 321.26 132 304 132 207 124.52 204" style="fill:#fff"/>
+					<polygon id="right-panel" points="272 218 254.48 204 247 207 247 304 247 321.26 279.05 381.92 283 400 293 400 293 304 272 218" style="fill:#fff"/>
+					<g id="window">
+						<rect x="132" y="138" width="115" height="40"/>
+						<path d="M649,367.5H607a7.5,7.5,0,0,1-7.3-5.77l-12-50.67a7.5,7.5,0,0,1,7.3-9.23h31v15H604.48l8.45,35.67H649Z" transform="translate(-494 -158)"/>
+						<path d="M760,367.5H718v-15h36.07l8.45-35.67H741v-15h31a7.5,7.5,0,0,1,7.3,9.23l-12,50.67A7.5,7.5,0,0,1,760,367.5Z" transform="translate(-494 -158)"/>
+					</g>
+					<rect id="wing" x="86" y="391" width="207" height="37"/>
+				</g>
+			</g>
+		</svg>
+
+		<div>
+			<div>
+				<div class='buttons'>
+			        <button id='connect'>Connect</button>
+			        <br>
+			        <button id='emulate'>Don't have a LEGO RC Tracked Racer with SBrick? Emulate!</button>
+				</div>
+				
+				<div id='controls'>
+			        <button id='button-forward' data-down='forward' data-up='stop'>▲&#xFE0E;</button>
+			        <button id='button-left' data-down='left' data-up='stop'>◀&#xFE0E;</button>
+			        <button id='button-right' data-down='right' data-up='stop'>▶&#xFE0E;</button>
+			        <button id='button-reverse' data-down='reverse' data-up='stop'>▼&#xFE0E;</button>
+				</div>
+	
+	
+				<!-- 
+					To make the CSS animations sync, we need to set up the --direction custom property,
+					and assign it to the content property of the #car element. Then we can use
+					getComputedStyle on every frame to get the current state of the car during the
+					animation.
+				-->
+					
+				<style>
+					
+					:root {
+						--direction: 'stop';
+					}
+					
+					#car {
+						content: var(--direction);
+					}
+					
+				</style>			
+	
+				<style id='style' contenteditable='plaintext-only'>
+@keyframes track {
+  0%  { --direction: 'left'; }
+  10% { --direction: 'right'; }
+  20% { --direction: 'left'; }
+  30% { --direction: 'right'; }
+  40% { --direction: 'forward'; }
+  50% { --direction: 'reverse'; }
+  60% { --direction: 'left'; }
+  64% { --direction: 'forward'; }
+  70% { --direction: 'left'; }
+  74% { --direction: 'forward'; }
+  80% { --direction: 'left'; }
+  84% { --direction: 'forward'; }
+  90% { --direction: 'left'; }
+  94% { --direction: 'forward'; }
+}
+
+#car {
+  animation: -track 10s infinite;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+				</style>
+			</div>
+			
+			<div id="about">
+				<a href="https://github.com/NielsLeenheer/BluetoothRacer">
+					Created with 
+					<svg viewBox="0 0 32 29.6">
+						<path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+					</svg> 
+					by Niels Leenheer
+				</a>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="index.js"></script>
+	</body>
+</html>
