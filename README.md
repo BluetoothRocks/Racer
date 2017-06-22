@@ -29,9 +29,15 @@ It also has a Remote Control service which has certain characteristics for opera
 
 It's actually not that difficult. The animation is applied to the drawing of the car in the DOM. It uses a custom property `--direction` to set the direction. The value of the custom property is then assigned to the `content` property of the `#car` element like this: `content: @var(--direction)`. We can then use `requestAnimationFrame` to query the current state of the animation for each frame using `getComputedStyle`. If the state changes, we send a command to the racer. So the animation runs in the DOM and we get it almost for free.
 
-## And how does the actual steering work?
+## Why the LEGO RC Tracked Racer?
 
-The Tracked Racer does not have a steering wheel, but instead it has two motors that directly drive the two tracks. To go forward or backwards you drive the two motors in the same direction. To steer you need to drive one of the motors forwards and the other one backwards or vice-versa. It gets a bit tricky because the motors are rotated 180° compared to each other, so if you need to go forward, you need to drive the one clockwise and the other one counter-clockwise. That will make sure they actually turn in the same direction. And for steering both motors need to turn clock-wise or counter-clockwise depending on the direction you want to go in. This makes sure the motors actually turn in the opposite general direction. It's a bit count-intuitive.
+It is relatively cheap. At least to the other motorized sets that LEGO sells. And you can actually buy it right now in stores. If you have another RC controlled set from LEGO, this project may not work for you, because the RC Tracked Racer does not have a separate servo motor for steering.
+
+## So how does the  steering work?
+
+The Tracked Racer does not have a servo motor for steering, but instead it has two motors that directly drive the two tracks. To go forward or backwards you drive the two motors in the same direction. To steer you need to drive one of the motors forwards and the other one backwards or vice-versa. This is the same way a real life tank steers.
+
+It gets a bit tricky because the motors are rotated 180° compared to each other, so if you need to go forward, you need to drive the one clockwise and the other one counter-clockwise. That will make sure they actually turn in the same direction. And for steering both motors need to turn clock-wise or counter-clockwise depending on the direction you want to go in. This makes sure the motors actually turn in the opposite general direction. It's a bit count-intuitive.
 
 ## Why??
 
