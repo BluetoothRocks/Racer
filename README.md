@@ -2,7 +2,7 @@
 Controlling a Lego Racer using SBrick with WebBluetooth
 
 
-## What you need?
+## What do I need?
 
 - [LEGO RC Tracked Racer – Set 42065](https://shop.lego.com/en-GB/RC-Tracked-Racer-42065)
 - [SBrick Bluetooth controller by Vengit](https://www.sbrick.com)
