@@ -7,6 +7,13 @@ Controlling a Lego Racer using SBrick with WebBluetooth
 - [LEGO RC Tracked Racer – Set 42065](https://shop.lego.com/en-GB/RC-Tracked-Racer-42065)
 - [SBrick Bluetooth controller by Vengit](https://www.sbrick.com)
 - A browser that support WebBluetooth on your operating system
+- Optionally: a Gamepad connected to your computer
+
+Try it out at: https://bricks.blue/tooth
+
+Even if you don't have any of the items above, you can still check it out in emulation mode. It then uses the WebAudio API to hear the tracks spin.
+
+Emulation kinda works in the current version of most browsers, but for the best results you kinda have to use Chrome, Opera of Firefox right now.
 
 
 ## How does this work?
@@ -27,7 +34,7 @@ The Tracked Racer does not have a steering wheel, but instead it has two motors 
 
 ## Why??
 
-Because it's fun. And I got to play around with all kinds of new specifications like WebBluetooth, Gamepad API, WebAudio API, CSS Grids, CSS Variables, Viewport units, SVG and animating SVG.
+Because it's fun. And I got to play around with all kinds of new specifications like WebBluetooth, Gamepad API, WebAudio API, Service Workers, CSS Grids, CSS Variables, Viewport units, SVG and animating SVG. Yes, this is a Progressive Web App that fully works offline and can be installed on your Android home screen.
 
 ## Based on:
 
