@@ -1,4 +1,4 @@
-# BluetoothRacer
+# BluetoothRocks! Racer
 Controlling a Lego Racer using SBrick with WebBluetooth
 
 
@@ -33,7 +33,7 @@ It's actually not that difficult. The animation is applied to the drawing of the
 
 It is relatively cheap. At least to the other motorized sets that LEGO sells. And you can actually buy it right now in stores. If you have another RC controlled set from LEGO, this project may not work for you, because the RC Tracked Racer does not have a separate servo motor for steering.
 
-## So how does the  steering work?
+## So how does the steering work?
 
 The Tracked Racer does not have a servo motor for steering, but instead it has two motors that directly drive the two tracks. To go forward or backwards you drive the two motors in the same direction. To steer you need to drive one of the motors forwards and the other one backwards or vice-versa. This is the same way a real life tank steers.
 
