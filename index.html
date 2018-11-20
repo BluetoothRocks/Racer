@@ -1,161 +1,158 @@
 <!doctype html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Racer – BluetoothRocks!</title>
+		<title>Bluetooth Rocks! — Racer</title>
 
-		<link rel="manifest" href="manifest.json">
 		<link rel="stylesheet" href="index.css">
-		
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="common.css">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#8cc63f">
+	</head>
+	
+	<body class='control'>
+		<div class='content'>
+			<div class='racer'>		
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 479 551">
+					<defs>
+					<linearGradient id="gradient-static" x1="0%" y1="0%" x2="0%" y2="10%">
+						<stop offset="0%" stop-color= "black" />
+						<stop offset="50%" stop-color= "#111" />
+					</linearGradient>
+					
+					<linearGradient id="gradient-reverse" x1="0%" y1="0%" x2="0%" y2="10%">
+						<stop offset="0%" stop-color= "black" />
+						<stop offset="50%" stop-color= "#111" />
+						
+						<animate attributeName="y1" dur="80ms" from="0%" to="10%" repeatCount="indefinite" />
+						<animate attributeName="y2" dur="80ms" from="10%" to="20%" repeatCount="indefinite" />
+					</linearGradient>
+					
+					<linearGradient id="gradient-forward" x1="0%" y1="0%" x2="0%" y2="10%">
+						<stop offset="0%" stop-color= "black" />
+						<stop offset="50%" stop-color= "#111" />
+						
+						<animate attributeName="y1" dur="80ms" from="10%" to="0%" repeatCount="indefinite" />
+						<animate attributeName="y2" dur="80ms" from="20%" to="10%" repeatCount="indefinite" />
+					</linearGradient>
+					
+					
+					<linearGradient id="static" xlink:href="#gradient-static" spreadMethod="repeat" />
+					<linearGradient id="forward" xlink:href="#gradient-forward" spreadMethod="repeat" />
+					<linearGradient id="reverse" xlink:href="#gradient-reverse" spreadMethod="repeat" />
+					</defs>
+
+					<g id="car">
+						<path id="left-track" d="M50.5 121h74v380h-74z" fill="url(#static)"/>
+						<path id="right-track" d="M354.5 121h74v380h-74z" fill="url(#static)"/>
+
+						<g id="body">
+							<path id="battery" d="M182.5 333h115v100h-115z" style="fill:#999"/>
+							<path id="base" d="M205.5 54.7l-8-2.7-35 20.4-26 97.6v263h46v-79h23zM274.5 54.7l8-2.7 35 20.4 26 97.6v263h-46v-79h-23z" style="fill:#8cc63f"/>
+							<g id="bonnet">
+								<path d="M205.5 50h23v140h-23zM251.5 50h23v140h-23z" style="fill:#fff"/>
+								<path d="M228.5 50h23v140h-23z"/>
+							</g>
+							<g id="roof">
+								<path class="st4" d="M205.5 237h23v96h-23zM251.5 237h23v96h-23z"/>
+								<path d="M228.5 237h23v96h-23z"/>
+							</g>
+							<path id="left-panel" class="st4" d="M175 254l-17.5 14-21 86v96h10l3.9-18.1 32.1-60.6V257z" style="fill:#fff"/>
+							<path id="right-panel" class="st4" d="M322.5 268L305 254l-7.5 3v114.3l32 60.6 4 18.1h10v-96z" style="fill:#fff"/>
+							<g id="window">
+								<path d="M182.5 188h115v40h-115z"/>
+								<path d="M205.5 259.5h-42c-3.5 0-6.5-2.4-7.3-5.8l-12-50.7c-1-4 1.5-8.1 5.6-9 .6-.1 1.1-.2 1.7-.2h31v15H161l8.5 35.7h36.1v15zM316.5 259.5h-42v-15h36.1l8.5-35.7h-21.5v-15h31c4.1 0 7.5 3.4 7.5 7.5 0 .6-.1 1.2-.2 1.7l-12 50.7c-.9 3.4-3.9 5.8-7.4 5.8z"/>
+							</g>
+							<path id="wing" d="M136.5 441h207v37h-207z"/>
+						</g>
+					</g>
+				</svg>
+			</div>
+		</div>
+
+		<div class='connect'>
+			<h1>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 136"><path d="M55.48,33.58,66.69,44.82,55.49,56.06V33.58Zm0,68.83L66.69,91.17,55.49,79.93v22.48ZM43.51,68,19.28,43.63l7-7.05L45.61,56V9.53l35.1,35.21L57.53,68,80.72,91.25,45.61,126.47V80L26.3,99.42l-7-7L43.51,68ZM50,136c29.6,0,50-14.11,50-68S79.6,0,50,0,0,14.11,0,68s20.4,68,50,68Z"/></svg>
+				Racer<em>!</em>
+			</h1>
+			<p>
+				To use this demo you need a LEGO RC Tracked Racer with SBrick. Don't have one? <a id='emulate'>Emulate!</a>
+			</p>
+
+			<button id='connect'>Connect</button>
+		</div>
+
+		<div class='settings'>
+			<div class='pills'>
+				<button id='control'>Control</button>
+				<button id='customize'>Customize</button>
+			</div>
+		
+			<div class='views'>
+				<div id='controlView'>
+					<div id='controls'>
+						<button id='button-forward' data-down='forward' data-up='stop'>▲&#xFE0E;</button>
+						<button id='button-left' data-down='left' data-up='stop'>◀&#xFE0E;</button>
+						<button id='button-right' data-down='right' data-up='stop'>▶&#xFE0E;</button>
+						<button id='button-reverse' data-down='reverse' data-up='stop'>▼&#xFE0E;</button>
+					</div>
+				</div>
+				
+				<div id='customizeView'>
+
+					<!-- 
+						To make the CSS animations sync, we need to set up the --direction custom property,
+						and assign it to the content property of the #car element. Then we can use
+						getComputedStyle on every frame to get the current state of the car during the
+						animation.
+					-->
+						
+					<style>
+						
+						:root {
+							--direction: 'stop';
+						}
+						
+						#car {
+							content: var(--direction);
+						}
+						
+					</style>			
+			
+					<style id='style' contenteditable='plaintext-only'>
+	@keyframes track {
+	  0%  { --direction: 'left'; }
+	  10% { --direction: 'right'; }
+	  20% { --direction: 'left'; }
+	  30% { --direction: 'right'; }
+	  40% { --direction: 'left'; }
+	  50% { --direction: 'right'; }
+	  58% { --direction: 'forward'; }
+	  59% { --direction: 'reverse'; }
+	  60% { --direction: 'left'; }
+	  69% { --direction: 'forward'; }
+	  70% { --direction: 'left'; }
+	  79% { --direction: 'forward'; }
+	  80% { --direction: 'left'; }
+	  89% { --direction: 'forward'; }
+	  90% { --direction: 'left'; }
+	  99% { --direction: 'forward'; }
+	}
+	
+	#car {
+	  animation: -track 10s infinite;
+	  animation-delay: 2s;
+	  animation-fill-mode: forwards;
+	}
+				</style>			
+			</div>			
+		</div>
+		
 		<script type="text/javascript" src="lib/promise-queue.js"></script>
 		<script type="text/javascript" src="lib/bluetooth.js"></script>
 		<script type="text/javascript" src="lib/sbrick.js"></script>
 		<script type="text/javascript" src="lib/gamepad.js"></script>
-
-		<script>
-
-			if ('serviceWorker' in navigator) {
- 				navigator.serviceWorker.register('sw.js');
-			}
-
-		</script>
-	</head>
-	
-	<body>
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 479 551">
-			<defs>
-			   <linearGradient id="gradient-static" x1="0%" y1="0%" x2="0%" y2="10%">
-			     <stop offset="0%" stop-color= "black" />
-			     <stop offset="50%" stop-color= "#111" />
-			   </linearGradient>
-			
-			   <linearGradient id="gradient-reverse" x1="0%" y1="0%" x2="0%" y2="10%">
-			     <stop offset="0%" stop-color= "black" />
-			     <stop offset="50%" stop-color= "#111" />
-			     
-			     <animate attributeName="y1" dur="80ms" from="0%" to="10%" repeatCount="indefinite" />
-			     <animate attributeName="y2" dur="80ms" from="10%" to="20%" repeatCount="indefinite" />
-			   </linearGradient>
-			
-			   <linearGradient id="gradient-forward" x1="0%" y1="0%" x2="0%" y2="10%">
-			     <stop offset="0%" stop-color= "black" />
-			     <stop offset="50%" stop-color= "#111" />
-			     
-			     <animate attributeName="y1" dur="80ms" from="10%" to="0%" repeatCount="indefinite" />
-			     <animate attributeName="y2" dur="80ms" from="20%" to="10%" repeatCount="indefinite" />
-			   </linearGradient>
-			
-			
-			   <linearGradient id="static" xlink:href="#gradient-static" spreadMethod="repeat" />
-			   <linearGradient id="forward" xlink:href="#gradient-forward" spreadMethod="repeat" />
-			   <linearGradient id="reverse" xlink:href="#gradient-reverse" spreadMethod="repeat" />
-			</defs>
-
-			<g id="car">
-				<rect id="left-track" y="71" width="74" height="380" fill= "url(#static)"/>
-				<rect id="right-track" y="71" width="74" height="380" transform="translate(304 0)" fill="url(#static)"/>
-				<g id="body">
-					<rect id="battery" x="132" y="283" width="115" height="100" style="fill:#999"/>
-					<g id="base">
-						<polygon points="155 4.7 147 2 112 22.42 86 120 86 383 132 383 132 304 155 304 155 4.7" style="fill:#8cc63f"/>
-						<polygon points="224 4.7 232 2 267 22.42 293 120 293 383 247 383 247 304 224 304 224 4.7" style="fill:#8cc63f"/>
-					</g>
-					<g id="bonnet">
-						<rect x="155" width="23" height="140" style="fill:#fff"/>
-						<rect x="201" width="23" height="140" style="fill:#fff"/>
-						<rect x="178" width="23" height="140"/>
-					</g>
-					<g id="roof">
-						<rect x="155" y="187" width="23" height="96" style="fill:#fff"/>
-						<rect x="201" y="187" width="23" height="96" style="fill:#fff"/>
-						<rect x="178" y="187" width="23" height="96"/>
-					</g>
-					<polygon id="left-panel" points="124.52 204 107 218 86 304 86 400 96 400 99.95 381.92 132 321.26 132 304 132 207 124.52 204" style="fill:#fff"/>
-					<polygon id="right-panel" points="272 218 254.48 204 247 207 247 304 247 321.26 279.05 381.92 283 400 293 400 293 304 272 218" style="fill:#fff"/>
-					<g id="window">
-						<rect x="132" y="138" width="115" height="40"/>
-						<path d="M649,367.5H607a7.5,7.5,0,0,1-7.3-5.77l-12-50.67a7.5,7.5,0,0,1,7.3-9.23h31v15H604.48l8.45,35.67H649Z" transform="translate(-494 -158)"/>
-						<path d="M760,367.5H718v-15h36.07l8.45-35.67H741v-15h31a7.5,7.5,0,0,1,7.3,9.23l-12,50.67A7.5,7.5,0,0,1,760,367.5Z" transform="translate(-494 -158)"/>
-					</g>
-					<rect id="wing" x="86" y="391" width="207" height="37"/>
-				</g>
-			</g>
-		</svg>
-
-		<div>
-			<div>
-				<div class='buttons'>
-			        <button id='connect'>Connect</button>
-			        <br>
-			        <button id='emulate'>Don't have a LEGO RC Tracked Racer with SBrick? Emulate!</button>
-				</div>
-				
-				<div id='controls'>
-			        <button id='button-forward' data-down='forward' data-up='stop'>▲&#xFE0E;</button>
-			        <button id='button-left' data-down='left' data-up='stop'>◀&#xFE0E;</button>
-			        <button id='button-right' data-down='right' data-up='stop'>▶&#xFE0E;</button>
-			        <button id='button-reverse' data-down='reverse' data-up='stop'>▼&#xFE0E;</button>
-				</div>
-	
-	
-				<!-- 
-					To make the CSS animations sync, we need to set up the --direction custom property,
-					and assign it to the content property of the #car element. Then we can use
-					getComputedStyle on every frame to get the current state of the car during the
-					animation.
-				-->
-					
-				<style>
-					
-					:root {
-						--direction: 'stop';
-					}
-					
-					#car {
-						content: var(--direction);
-					}
-					
-				</style>			
-	
-				<style id='style' contenteditable='plaintext-only'>
-@keyframes track {
-  0%  { --direction: 'left'; }
-  10% { --direction: 'right'; }
-  20% { --direction: 'left'; }
-  30% { --direction: 'right'; }
-  40% { --direction: 'forward'; }
-  50% { --direction: 'reverse'; }
-  60% { --direction: 'left'; }
-  64% { --direction: 'forward'; }
-  70% { --direction: 'left'; }
-  74% { --direction: 'forward'; }
-  80% { --direction: 'left'; }
-  84% { --direction: 'forward'; }
-  90% { --direction: 'left'; }
-  94% { --direction: 'forward'; }
-}
-
-#car {
-  animation: -track 10s infinite;
-  animation-delay: 2s;
-  animation-fill-mode: forwards;
-}
-				</style>
-			</div>
-			
-			<div id="about">
-				<a href="https://github.com/BluetoothRocks/Racer">
-					Created with 
-					<svg viewBox="0 0 32 29.6">
-						<path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
-					</svg> 
-					by Niels Leenheer
-				</a>
-			</div>
-		</div>
-		
 		<script type="text/javascript" src="index.js"></script>
 	</body>
 </html>

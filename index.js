@@ -1,3 +1,18 @@
+/* Pills */
+
+document.getElementById('control').addEventListener('click', (e) => {
+	document.body.classList.remove('control', 'customize');
+	document.body.classList.add('control');
+});
+
+document.getElementById('customize').addEventListener('click', (e) => {
+	document.body.classList.remove('control', 'customize');
+	document.body.classList.add('customize');
+});
+
+
+
+
 
 var emulateState = false;
 var lightsState = false;
@@ -92,6 +107,8 @@ function handleKeyEvent(event) {
 
 	if (event.key == 'l' && event.type == 'keydown') {
 		executeCommand('lights');
+		event.preventDefault();
+
 		return;
 	}
 
@@ -101,11 +118,11 @@ function handleKeyEvent(event) {
 		if (event.type == 'keydown') {
 			lastKey = event.key;
 		}
+
+		event.preventDefault();
 	}
 	
 	evaluateCommands();
-
-    event.preventDefault();
 }
 
 
